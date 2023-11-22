@@ -14,13 +14,10 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/src
 )
 
-file(GLOB_RECURSE SOURCE_FILES
-        ${PROJECT_SOURCE_DIR}/src/*.h
-        ${PROJECT_SOURCE_DIR}/src/*.hpp
-        ${PROJECT_SOURCE_DIR}/src/*.cpp
-        ${PROJECT_SOURCE_DIR}/src/*.c)
+file(GLOB_RECURSE SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE HEADER_FILES ${PROJECT_SOURCE_DIR}/src/*.h)
 
-add_executable(SFMLGame ${SOURCE_FILES})
+add_executable(SFMLGame ${HEADER_FILES} ${SOURCE_FILES})
 
 # Copy over game resources to binary folder
 add_custom_target(copy_resources ALL
