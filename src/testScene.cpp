@@ -21,7 +21,7 @@ void testScene::init() {
   sf::Color grey(128,128,128,255);
 
   gameText.init(TEXTBOX_X, TEXTBOX_Y, (float)GAME_WINDOW_WIDTH, TEXTBOX_HEIGHT, FONT_SIZE, FONT_SHADOW_OFFSET, TEXTBOX_BORDER_THICKNESS, grey, sf::Color::White, sf::Color::White, sf::Color::Black, &font);
-  gameText.setMessage("This is a test of loading fonts in SFML.");
+  gameText.setMessage("This is a test of loading fonts in SFML.  The hope is to get a decent scroll rate for this text, as well as automatically make it wrap into the box and eventually script it out. Ideally, this becomes a much more branching conversation system with simple yes/no question answers and beyond.");
   gameText.setMugshot(&mugshotSprite);
 };
 
@@ -30,7 +30,7 @@ void testScene::processEvents() {
 };
 
 void testScene::update(sf::Time deltaTime) {
-    
+    gameText.update(deltaTime);
 };
       
 void testScene::draw(sf::RenderWindow* window) {
