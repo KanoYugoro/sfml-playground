@@ -27,6 +27,8 @@ int main()
             game.update(TIME_PER_FRAME);
         }
 
+        game.update(timeSinceLastUpdate);
+
         sf::Event event;
         while (window.pollEvent(event))
         {
