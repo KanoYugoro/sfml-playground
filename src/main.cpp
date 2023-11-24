@@ -1,49 +1,42 @@
 #include <SFML/Graphics.hpp>
-#include <TextBox.h>
+#include <Game.h>
 
 int main()
 {
-    sf::Font font;
-    if (!font.loadFromFile("./resources/fonts/KdamThmorPro-Regular.ttf"))
-    {
-        return 0;
-    }
-
-    sf::Texture mugshotTexture;
-    if (!mugshotTexture.loadFromFile("./resources/sprites/pilot.png"))
-    {
-        return 0;
-    }
-    mugshotTexture.setSmooth(true);
-    sf::Sprite mugshotSprite;
-    mugshotSprite.setTexture(mugshotTexture);
-
     const int GAME_WINDOW_WIDTH = 1200;
     const int GAME_WINDOW_HEIGHT = 700;
-    const float TEXTBOX_X = 0.f;
-    const float TEXTBOX_Y = GAME_WINDOW_HEIGHT*0.75f;
-    const float TEXTBOX_BORDER_THICKNESS = 3;
-    const int FONT_SIZE = 24;
-    const int FONT_SHADOW_OFFSET = FONT_SIZE * 0.125f;
-    const float TEXTBOX_HEIGHT = GAME_WINDOW_HEIGHT*0.25;
-    sf::Color grey(128,128,128,255);
 
-    TextBox gameText(TEXTBOX_X, TEXTBOX_Y, (float)GAME_WINDOW_WIDTH, TEXTBOX_HEIGHT, FONT_SIZE, FONT_SHADOW_OFFSET, TEXTBOX_BORDER_THICKNESS, grey, sf::Color::White, sf::Color::White, sf::Color::Black, &font);
-    gameText.setMessage("This is a test of loading fonts in SFML.");
-    gameText.setMugshot(&mugshotSprite);
+    Game game;
+
+    // Delta Time setup
+    sf::Clock gameClock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    const sf::Time TIME_PER_FRAME = sf::seconds(1.f / 60.f);
 
     sf::RenderWindow window(sf::VideoMode(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT), "Game");
     
     while (window.isOpen())
     {
+        game.processEvents();
+        timeSinceLastUpdate = gameClock.restart();
+
+        while (timeSinceLastUpdate > TIME_PER_FRAME)
+        {
+            timeSinceLastUpdate -= TIME_PER_FRAME;
+            game.processEvents();
+            game.update(TIME_PER_FRAME);
+        }
+
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+
+        // Render
         window.clear();
-        gameText.draw(&window);
+        game.draw(&window);
         window.display();
     }
 }

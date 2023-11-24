@@ -11,11 +11,13 @@ class TextBox {
       sf::Color textShadowColor;
       sf::Font* font;
 
-      TextBox(float _x, float _y, float _w, float _h, int _fontSize, int _fontShadowOffset, int _borderThickness, sf::Color _backgroundColor, sf::Color _borderColor, sf::Color _textColor, sf::Color _textShadowColor, sf::Font* _font);
+      TextBox();
+      void init(float _x, float _y, float _w, float _h, int _fontSize, int _fontShadowOffset, int _borderThickness, sf::Color _backgroundColor, sf::Color _borderColor, sf::Color _textColor, sf::Color _textShadowColor, sf::Font* _font);
       void draw(sf::RenderWindow* window);
       void setMessage(std::string newMessage);
       void setMugshot(sf::Sprite* _mugshot);
     private:
+      bool initialized;
       std::string message;
       sf::RectangleShape background;
       sf::RectangleShape mugBackground;

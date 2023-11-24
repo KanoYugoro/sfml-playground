@@ -1,6 +1,10 @@
 #include <TextBox.h>
 
-TextBox::TextBox(float _x, float _y, float _w, float _h, int _fontSize, int _fontShadowOffset, int _borderThickness, sf::Color _backgroundColor, sf::Color _borderColor, sf::Color _textColor, sf::Color _textShadowColor, sf::Font* _font) {
+TextBox::TextBox() {
+    initialized = false;
+}
+
+void TextBox::init(float _x, float _y, float _w, float _h, int _fontSize, int _fontShadowOffset, int _borderThickness, sf::Color _backgroundColor, sf::Color _borderColor, sf::Color _textColor, sf::Color _textShadowColor, sf::Font* _font) {
     x = _x;
     y = _y;
     w = _w;
@@ -52,33 +56,41 @@ TextBox::TextBox(float _x, float _y, float _w, float _h, int _fontSize, int _fon
     noMugText.setCharacterSize(fontSize);
     noMugText.setFillColor(textColor);
     noMugText.setPosition(x+(mugBackgroundWidth*.33f), y+(mugBackgroundHeight*.33f));
+
+    initialized = true;
 }
 
 void TextBox::draw(sf::RenderWindow* window) {
-    window->draw(background);
-    window->draw(mugBackground);
-    if (hasMugshot) {
-        window->draw(*mugshot);
-    } else {
-        window->draw(noMugText);
+    if (initialized) {
+        window->draw(background);
+        window->draw(mugBackground);
+        if (hasMugshot) {
+            window->draw(*mugshot);
+        } else {
+            window->draw(noMugText);
+        }
+        window->draw(text_shadow);
+        window->draw(text);
     }
-    window->draw(text_shadow);
-    window->draw(text);
 }
 
 void TextBox::setMessage(std::string newMessage) {
-    message = newMessage;
-    text_shadow.setString(message);
-    text.setString(message);
+    if (initialized) {
+        message = newMessage;
+        text_shadow.setString(message);
+        text.setString(message);
+    }
 }
 
 void TextBox::setMugshot(sf::Sprite* _mugshot) {
-    hasMugshot = true;
-    mugshot = _mugshot;
-    mugshot->setPosition(x+(borderThickness*3),y+(borderThickness*3));
+    if (initialized) {
+        hasMugshot = true;
+        mugshot = _mugshot;
+        mugshot->setPosition(x+(borderThickness*3),y+(borderThickness*3));
 
-    sf::Vector2u mugSize = mugshot->getTexture()->getSize();
-    float scaleFactor = (mugBackgroundWidth / mugSize.x);
+        sf::Vector2u mugSize = mugshot->getTexture()->getSize();
+        float scaleFactor = (mugBackgroundWidth / mugSize.x);
 
-    mugshot->setScale(sf::Vector2f(scaleFactor,scaleFactor));
+        mugshot->setScale(sf::Vector2f(scaleFactor,scaleFactor));
+    }
 }
