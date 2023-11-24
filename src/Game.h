@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameScene.h"
 #include "mainMenuScene.h"
+#include "testScene.h"
 
 class Game {
     public:
@@ -13,4 +14,5 @@ class Game {
     private:
       GameScene* currentScene;
       mainMenuScene mainMenu;
+      testScene test;
 };

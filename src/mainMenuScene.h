@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include "Game.h"
 
 class mainMenuScene : public GameScene {
     public:

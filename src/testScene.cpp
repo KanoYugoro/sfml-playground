@@ -8,7 +8,6 @@ testScene::testScene() {
 
 void testScene::init() {
   mugshotTexture.setSmooth(true);
-  sf::Sprite mugshotSprite;
   mugshotSprite.setTexture(mugshotTexture);
 
   const int GAME_WINDOW_WIDTH = 1200;

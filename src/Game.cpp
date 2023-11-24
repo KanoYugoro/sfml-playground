@@ -10,6 +10,10 @@ void Game::init() {
 };
 
 void Game::processEvents() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        setScene(&test);
+    }
     currentScene->processEvents();
 };
 
