@@ -4,6 +4,7 @@ out
 .idea
 .vs
 .vscode
+*.pdb
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
